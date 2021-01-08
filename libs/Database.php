@@ -1,6 +1,6 @@
 <?php
 
-require_once "libs/Config.php";
+require_once 'libs/Config.php';
 
 class Database
 {
@@ -21,11 +21,25 @@ class Database
         }
     }
 
-    public static function get()
+    public static function getHandle()
     {
         if (isset(Database::$dbh))
             return Database::$dbh;
 
         return Database::connect();
+    }
+
+    public static function find($table, $id)
+    {
+        $sth = Database::getHandle()->prepare("SELECT * FROM $table WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->execute(array(':id' => $id));
+        return $sth->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function getAll($table)
+    {
+        $sth = Database::getHandle()->prepare("SELECT * FROM $table WHERE 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 }

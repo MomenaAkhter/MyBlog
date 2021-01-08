@@ -2,23 +2,30 @@
 
 class Config
 {
-    private static function getContents()
+    private static $config;
+
+    private static function load()
     {
-        $handle = fopen("config.json", "r");
+        if (!isset(Config::$config)) {
 
-        $contents = fread($handle, filesize("config.json"));
-        fclose($handle);
+            $handle = fopen("config.json", "r");
 
-        return $contents;
+            $contents = fread($handle, filesize("config.json"));
+            fclose($handle);
+
+            Config::$config = json_decode($contents, true);
+        }
     }
 
     public static function get($key)
     {
-        return json_decode(Config::getContents(), true)[$key];
+        Config::load();
+        return Config::$config[$key];
     }
 
     public static function getAll()
     {
-        return json_decode(Config::getContents(), true);
+        Config::load();
+        return Config::$config;
     }
 }
