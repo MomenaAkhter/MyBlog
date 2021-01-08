@@ -36,10 +36,29 @@ class Database
         return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function get($table, $key, $value)
+    {
+        $sth = Database::getHandle()->prepare("SELECT * FROM $table WHERE $key = :$key", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->execute(array(":$key" => $value));
+        return $sth->fetch(PDO::FETCH_ASSOC);
+    }
+
     public static function getAll($table)
     {
         $sth = Database::getHandle()->prepare("SELECT * FROM $table WHERE 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function insert($table, $columns, $values)
+    {
+        $columns = implode(',', $columns);
+        $values = implode(',', array_map(function ($item) {
+            if (is_int($item))
+                return $item;
+            return "'$item'";
+        }, $values));
+
+        Database::getHandle()->exec("INSERT INTO $table ($columns) VALUES ($values)");
     }
 }

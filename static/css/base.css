@@ -1,6 +1,7 @@
 :root {
     --menu-bg-color: rgb(22, 27, 34);
     --button-border-color: #6340e3;
+    --danger-bg-color: rgb(248, 215, 218);
 }
 
 body {
@@ -82,4 +83,15 @@ input[type='text'], input[type='password'], input[type='email'] {
     padding: 0.7em 1em 0.7em 1em;
     border-radius: 3px;
     width: 100%;
+}
+
+.message {
+    padding: 1em;
+    border-radius: 3px;
+}
+
+.message.is-danger {
+    border: 1px solid rgb(245, 194, 199);
+    background-color: var(--danger-bg-color);
+    margin-bottom: 1em;
 }
