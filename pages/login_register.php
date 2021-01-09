@@ -21,7 +21,7 @@ if (isset($_POST['register'])) {
             return "<li>$item</li>";
         }, $errors));
 
-        echo "<div class='message is-danger'><ul>$error_items</ul></div>";
+        echo "<div class='message is-danger'>Registration failed due to the following issues:<ul>$error_items</ul></div>";
     }
 }
 ?>

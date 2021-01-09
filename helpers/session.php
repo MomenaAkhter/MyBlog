@@ -23,9 +23,6 @@ function check_session_key($key)
 {
     prepare_session();
 
-    var_dump(isset($_SESSION['name']));
-    exit();
-
     return isset($_SESSION[$key]);
 }
 
