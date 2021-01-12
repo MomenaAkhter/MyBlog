@@ -7,6 +7,6 @@ class Page
         $page_title = $title;
         $page_name = $name;
 
-        require_once "pages/components/$layout.php";
+        require_once __DIR__ . "/../pages/components/$layout.php";
     }
 }

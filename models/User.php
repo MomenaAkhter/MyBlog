@@ -1,7 +1,7 @@
 <?php
 
-require_once 'libs/Database.php';
-require_once 'helpers/session.php';
+require_once __DIR__ . '/../libs/Database.php';
+require_once __DIR__ . '/../helpers/session.php';
 
 class User
 {
@@ -14,8 +14,7 @@ class User
     {
         if ($user = Database::get('users', 'name', $name)) {
             if (password_verify($password, $user['password'])) {
-                set_session_key('name', $name);
-                echo get_session_key('name');
+                set_session_value('id', $user['id']);
                 return true;
             }
         }
@@ -25,12 +24,12 @@ class User
 
     public static function isLoggedIn()
     {
-        return check_session_key('name');
+        return check_session_key('id') ? User::find(get_session_value('id')) : false;
     }
 
     public static function logout()
     {
-        remove_session_key('name');
+        remove_session_key('id');
     }
 
     public static function register($name, $password, $password_confirmation, $email)

@@ -1,8 +1,8 @@
 <h1>Articles</h1>
 
 <?php
-require_once 'libs/Database.php';
-require_once 'models/Article.php';
+require_once __DIR__ . '/../libs/Database.php';
+require_once __DIR__ . '/../models/Article.php';
 
 $articles = Database::getAll('articles');
 ?>

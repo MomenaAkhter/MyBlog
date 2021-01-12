@@ -9,8 +9,8 @@
     </head>
 
     <body>
-        <?php require_once 'pages/components/menu.php'; ?>
-        <?php require_once 'pages/' . $page_name . '.php'; ?>
+        <?php require_once __DIR__ . '/../components/menu.php'; ?>
+        <?php require_once __DIR__ . '/../' . $page_name . '.php'; ?>
     </body>
 
 </html>

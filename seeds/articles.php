@@ -1,6 +1,6 @@
 <?php
 
-require_once 'libs/Database.php';
+require_once __DIR__ . '/../libs/Database.php';
 
 $datetime_now = date('Y-m-d H:i:s');
 

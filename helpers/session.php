@@ -5,14 +5,14 @@ function prepare_session()
     if (session_status() != PHP_SESSION_ACTIVE) session_start();
 }
 
-function set_session_key($key, $value)
+function set_session_value($key, $value)
 {
     prepare_session();
 
     $_SESSION[$key] = $value;
 }
 
-function get_session_key($key)
+function get_session_value($key)
 {
     prepare_session();
 

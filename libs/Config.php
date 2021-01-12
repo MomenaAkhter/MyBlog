@@ -8,9 +8,9 @@ class Config
     {
         if (!isset(Config::$config)) {
 
-            $handle = fopen("config.json", "r");
+            $handle = fopen(__DIR__ . "/../config.json", "r");
 
-            $contents = fread($handle, filesize("config.json"));
+            $contents = fread($handle, filesize(__DIR__ . "/../config.json"));
             fclose($handle);
 
             Config::$config = json_decode($contents, true);

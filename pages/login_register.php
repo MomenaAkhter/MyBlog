@@ -1,6 +1,6 @@
 <?php
 
-require_once "models/User.php";
+require_once __DIR__ . '/../models/User.php';
 
 if (isset($_POST['login'])) {
     if (User::login($_POST['name'], $_POST['password'])) {

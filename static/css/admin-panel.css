@@ -1,0 +1,7 @@
+:root {
+    --menu-bg-color: #B33B4A;
+}
+
+.menu.admin-panel-menu {
+    background: var(--menu-bg-color);
+}

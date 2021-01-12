@@ -1,16 +1,23 @@
 <?php
-require_once 'libs/Config.php';
-require_once 'models/User.php';
+require_once __DIR__ . '/../../libs/Config.php';
+require_once __DIR__ . '/../../models/User.php';
 ?>
 
 <nav class="menu">
     <div class="left">
         <div class="title"><?php echo Config::get('site_name'); ?></div>
-        <a href="index.php">Home</a>
-        <a href="articles.php">Articles</a>
+        <?php foreach (Database::getAll('menu_items') as $menuItem) {
+            echo "<a href='{$menuItem['href']}'>{$menuItem['name']}</a>";
+        } ?>
     </div>
     <div class="right">
-        <?php if (User::isLoggedIn()) { ?>
+        <?php if ($user = User::isLoggedIn()) { ?>
+        <span>Hello <b><?php echo $user['name']; ?></b></span>
+
+        <?php if ($user['is_admin'] == 1) { ?>
+        <a href="admin_panel/index.php">Admin Panel</a>
+        <?php } ?>
+
         <a href="logout.php">Logout</a>
         <?php } else { ?>
         <a href="login_register.php">Login / Register</a>

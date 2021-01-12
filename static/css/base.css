@@ -1,3 +1,5 @@
+/* Foundation */
+
 :root {
     --menu-bg-color: rgb(22, 27, 34);
     --button-border-color: #6340e3;
@@ -10,6 +12,8 @@ body {
     font-size: 1em;
     padding: 1.5em;
 }
+
+/* Menus */
 
 .menu {
     background: var(--menu-bg-color);
@@ -33,7 +37,7 @@ body {
     display: flex;
 }
 
-.menu .left>a, .right>a {
+.menu .left>a, .right>a, span {
     margin-right: 1em;
     color: white;
     text-decoration: none;
@@ -42,6 +46,8 @@ body {
 .menu .left>a:hover, .right>a:hover {
     color: #DDD;
 }
+
+/* Users */
 
 .login-register {
     display: grid;
@@ -55,6 +61,8 @@ body {
 .login-register>.login {
     margin-right: 1.5em;
 }
+
+/* Forms */
 
 form>div {
     margin-bottom: .7em;
@@ -85,6 +93,8 @@ input[type='text'], input[type='password'], input[type='email'] {
     width: 100%;
 }
 
+/* Messages */
+
 .message {
     padding: 1em;
     border-radius: 3px;
@@ -113,4 +123,35 @@ input[type='text'], input[type='password'], input[type='email'] {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 1em;
+}
+
+/* Tables */
+
+table {
+    -webkit-box-sizing: border-box;
+    /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;
+    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    /* Opera/IE 8+ */
+    width: 100%;
+    border-spacing: 0px;
+}
+
+table thead th {
+    text-decoration: underline;
+    text-align: left;
+    padding: 1em;
+    border-top: 1px solid #CCC;
+    border-bottom: 2px solid #CCC;
+}
+
+table tbody td {
+    padding: 1em;
+    border-bottom: 1px solid #CCC;
+    margin: 0px;
+}
+
+table tbody tr:nth-child(even) {
+    background: #EEE;
 }
