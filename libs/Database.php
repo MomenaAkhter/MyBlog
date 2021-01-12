@@ -59,6 +59,12 @@ class Database
             return "'$item'";
         }, $values));
 
-        Database::getHandle()->exec("INSERT INTO $table ($columns) VALUES ($values)");
+        return Database::getHandle()->exec("INSERT INTO $table ($columns) VALUES ($values)");
+    }
+
+    public static function remove($table, $id)
+    {
+        $sth = Database::getHandle()->prepare("DELETE FROM $table WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        return $sth->execute([':id' => $id]);
     }
 }

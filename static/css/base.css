@@ -4,6 +4,7 @@
     --menu-bg-color: rgb(22, 27, 34);
     --button-border-color: #6340e3;
     --danger-bg-color: rgb(248, 215, 218);
+    --success-bg-color: #D1E7DD;
 }
 
 body {
@@ -11,6 +12,10 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
     font-size: 1em;
     padding: 1.5em;
+}
+
+a {
+    color: black;
 }
 
 /* Menus */
@@ -68,6 +73,19 @@ form>div {
     margin-bottom: .7em;
 }
 
+.form-inline {
+    display: flex;
+    margin-bottom: 1.5em;
+}
+
+.form-inline input {
+    margin-right: 1em;
+}
+
+.form-inline input:last-child {
+    margin-right: 0em;
+}
+
 input[type='submit'] {
     padding: 0.5em 1em 0.5em 1em;
     background: white;
@@ -91,6 +109,7 @@ input[type='text'], input[type='password'], input[type='email'] {
     padding: 0.7em 1em 0.7em 1em;
     border-radius: 3px;
     width: 100%;
+    font-size: 15px;
 }
 
 /* Messages */
@@ -98,12 +117,17 @@ input[type='text'], input[type='password'], input[type='email'] {
 .message {
     padding: 1em;
     border-radius: 3px;
+    margin-bottom: 1em;
 }
 
 .message.is-danger {
     border: 1px solid rgb(245, 194, 199);
     background-color: var(--danger-bg-color);
-    margin-bottom: 1em;
+}
+
+.message.is-success {
+    border: 1px solid #badbcc;
+    background-color: var(--success-bg-color);
 }
 
 .articles {
