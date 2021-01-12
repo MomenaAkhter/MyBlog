@@ -22,14 +22,41 @@ if ($action == 'move_down')
         echo "<div class='message is-success'>Menu item moved down successfully.</div>";
 
 // Create
-if (isset($_POST['name']))
+if (isset($_POST['create']))
     if (Database::insert('menu_items', ['name', 'href', 'weight'], [$_POST['name'], $_POST['link'], 0]))
         echo "<div class='message is-success'>Menu item created successfully.</div>";
 
+// Edit
+if ($action == 'edit') {
+    $id = $_GET['id'];
 
+    if (isset($_POST['edit']))
+        if (MenuItem::alter($id, $_POST['name'], $_POST['link'], $_POST['weight']))
+            echo "<div class='message is-success'>Menu item updated successfully.</div>";
+
+    $menu_item = Database::find('menu_items', $id);
+?>
+<form action="menu_items.php?action=edit&id=<?php echo $id; ?>" method='POST'>
+    <input type="hidden" name="edit">
+    <div>
+        <input type="text" name="name" placeholder="Name" value="<?php echo $menu_item['name'] ?>">
+    </div>
+    <div>
+        <input type="text" name="link" placeholder="Link" value="<?php echo $menu_item['href'] ?>">
+    </div>
+    <div>
+        <input type="number" name="weight" placeholder="Weight" value="<?php echo $menu_item['weight'] ?>">
+    </div>
+    <div>
+        <input type="submit" value="Edit">
+    </div>
+</form>
+<?php
+} else {
 ?>
 
 <form action="menu_items.php" method='POST' class="form-inline">
+    <input type="hidden" name="create">
     <input type="text" name="name" placeholder="Name">
     <input type="text" name="link" placeholder="Link">
     <input type="submit" value="Create">
@@ -49,24 +76,24 @@ if (isset($_POST['name']))
         <?php
 
 
-        $menu_items = MenuItem::getAll();
-        foreach ($menu_items as $menu_item) {
-            echo <<<EOT
+            $menu_items = MenuItem::getAll();
+            foreach ($menu_items as $menu_item) {
+                echo <<<EOT
                 <tr>
                     <td>{$menu_item['id']}</td>
                     <td>{$menu_item['name']}</td>
                     <td>{$menu_item['href']}</td>
                     <td>{$menu_item['weight']}</td>
                     <td>
-                        <a href='?action=move_up&id={$menu_item['id']}'>Move Up</a>&nbsp;
-                        <a href='?action=move_down&id={$menu_item['id']}'>Move Down</a>&nbsp;
+                        Move
+                        [<a href='?action=move_up&id={$menu_item['id']}'>Up</a> /
+                        <a href='?action=move_down&id={$menu_item['id']}'>Down</a>]&nbsp;
                         <a href='?action=edit&id={$menu_item['id']}'>Edit</a>&nbsp;
                         <a href='?action=delete&id={$menu_item['id']}'>Delete</a>
                     </td>
                 </tr>
                 EOT;
-        } ?>
+            } ?>
     </tbody>
 </table>
-
-<script src="../static/js/admin_panel/menu_items.js"></script>
+<?php } ?>

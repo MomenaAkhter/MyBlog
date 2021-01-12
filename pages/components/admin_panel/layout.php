@@ -22,6 +22,7 @@
         header('Location: ../index.php');
     } ?>
 
+        <script src="../static/js/base.js"></script>
     </body>
 
 </html>

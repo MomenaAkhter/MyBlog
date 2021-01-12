@@ -98,7 +98,7 @@ input[type='submit']:hover {
     cursor: pointer;
 }
 
-input[type='text'], input[type='password'], input[type='email'] {
+input[type='text'], input[type='password'], input[type='email'], input[type='number'] {
     -webkit-box-sizing: border-box;
     /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;
