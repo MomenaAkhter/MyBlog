@@ -1,9 +1,15 @@
 <h1>Comments</h1>
 
-
 <?php
 require_once __DIR__ . '/../../libs/Database.php';
 require_once __DIR__ . '/../../models/Comment.php';
+
+$action = isset($_GET['action']) ? $_GET['action'] : null;
+
+// Delete
+if ($action == 'delete')
+    if (Database::remove('comments', $_GET['id']))
+        echo "<div class='message is-success'>Comment deleted successfully.</div>";
 
 $comments = Comment::getAll();
 $groups = [];
@@ -16,13 +22,10 @@ foreach ($comments as $comment)
 
 
 
-foreach ($groups as $article_id => $comments)
+foreach ($groups as $article_id => $comments) {
     if (count($comments) > 0) {
         echo "<h1>{$comments[0]['article_title']}</h1>";
-
-
-        foreach ($comments as $comment) { ?>
-
+?>
 <table>
     <thead>
         <tr>
@@ -33,16 +36,22 @@ foreach ($groups as $article_id => $comments)
         </tr>
     </thead>
     <tbody>
-        <?php
-                echo "<tr><td>{$comment['id']}</td><td>{$comment['user_name']}</td><td>{$comment['body']}</td><td></td></tr>";
-                ?>
+        <?php foreach ($comments as $comment) {
+                    echo <<<EOT
+                <tr>
+                    <td>{$comment['id']}</td>
+                    <td>{$comment['user_name']}</td>
+                    <td>{$comment['body']}</td>
+                    <td>
+                        <a href='?action=delete&id={$comment['id']}'>Delete</a>
+                    </td>
+                </tr>
+                EOT;
+                } ?>
     </tbody>
 </table>
 <?php
-        }
+
     }
-
-
-
-
+}
 ?>
