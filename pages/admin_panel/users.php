@@ -1,5 +1,19 @@
 <h1>Users</h1>
 
+<?php
+
+require_once __DIR__ . '/../../libs/Database.php';
+require_once __DIR__ . '/../../models/Article.php';
+
+$action = isset($_GET['action']) ? $_GET['action'] : null;
+
+// Delete
+if ($action == 'delete')
+    if (Database::remove('users', $_GET['id']))
+        echo "<div class='message is-success'>User deleted successfully.</div>";
+
+?>
+
 <table>
     <thead>
         <tr>
@@ -12,9 +26,6 @@
     </thead>
     <tbody>
         <?php
-        require_once __DIR__ . '/../../libs/Database.php';
-        require_once __DIR__ . '/../../models/Article.php';
-
         $users = Database::getAll('users');
         foreach ($users as $user) {
             echo <<<EOT
