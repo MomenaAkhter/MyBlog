@@ -48,7 +48,7 @@ if ($action == 'edit') {
         <input type="number" name="weight" placeholder="Weight" value="<?php echo $menu_item['weight'] ?>">
     </div>
     <div>
-        <input type="submit" value="Edit">
+        <input type="submit" value="Update">
     </div>
 </form>
 <?php

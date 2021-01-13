@@ -25,8 +25,34 @@ if (isset($_POST['create'])) {
         echo "<div class='message is-success'>Article created successfully.</div>";
 }
 
-// Create form
-if ($action == 'create') { ?>
+// Edit
+if ($action == 'edit') {
+    $id = $_GET['id'];
+
+    if (isset($_POST['edit']))
+        if (Article::alter($id, $_POST['title'], $_POST['body'], isset($_POST['is_top']) ? 1 : 0, isset($_POST['comments_enabled']) ? 1 : 0))
+            echo "<div class='message is-success'>Article updated successfully.</div>";
+
+    $article = Article::find($id);
+?>
+<form action="articles.php?action=edit&id=<?php echo $id; ?>" method='POST'>
+    <input type="hidden" name="edit">
+    <input type="text" name="title" value="<?php echo $article['title']; ?>" placeholder="Title">
+    <textarea name="body" placeholder="Body" cols="30" rows="10"><?php echo $article['body']; ?></textarea>
+    <div>
+        Top
+        <input type="checkbox" name="is_top" <?php echo $article['is_top'] == 1 ? "checked" : ""; ?>>
+    </div>
+    <div>
+        Comments
+        <input type="checkbox" name="comments_enabled"
+            <?php echo $article['comments_enabled'] == 1 ? "checked" : ""; ?>>
+    </div>
+    <input type="submit" value="Update">
+</form>
+<?php
+    // Create form
+} else if ($action == 'create') { ?>
 <form action="articles.php" method='POST'>
     <input type="hidden" name="create">
     <input type="text" name="title" value="<?php echo $_GET['title']; ?>" placeholder="Title">
