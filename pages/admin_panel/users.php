@@ -17,7 +17,17 @@
 
         $users = Database::getAll('users');
         foreach ($users as $user) {
-            echo "<tr><td>{$user['id']}</td><td>{$user['name']}</td><td>{$user['email_address']}</td><td>{$user['is_admin']}</td><td></td></tr>";
+            echo <<<EOT
+                <tr>
+                    <td>{$user['id']}</td>
+                    <td>{$user['name']}</td>
+                    <td>{$user['email_address']}</td>
+                    <td>{$user['is_admin']}</td>
+                    <td>
+                        <a href='?action=delete&id={$user['id']}'>Delete</a>
+                    </td>
+                </tr>
+                EOT;
         }
 
         ?>
