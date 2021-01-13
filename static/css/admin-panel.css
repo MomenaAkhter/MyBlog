@@ -5,3 +5,16 @@
 .menu.admin-panel-menu {
     background: var(--menu-bg-color);
 }
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+    row-gap: 1em;
+}
+
+.cards>.card {
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+}
