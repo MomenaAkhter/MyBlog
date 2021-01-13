@@ -8,6 +8,11 @@ require_once __DIR__ . '/../../models/User.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 
+// Delete
+if ($action == 'delete')
+    if (Database::remove('articles', $_GET['id']))
+        echo "<div class='message is-success'>Article deleted successfully.</div>";
+
 // Create form submission
 if (isset($_POST['create'])) {
     $title = $_POST['title'];
@@ -65,7 +70,23 @@ if ($action == 'create') { ?>
 
             $articles = Article::getAll();
             foreach ($articles as $article) {
-                echo "<tr><td>{$article['id']}</td><td>{$article['name']}</td><td>{$article['title']}</td><td>{$article['body']}</td><td>{$article['is_top']}</td><td>{$article['comments_enabled']}</td><td></td></tr>";
+                $article['is_top'] = $article['is_top'] == 1 ? 'Yes' : 'No';
+                $article['comments_enabled'] = $article['comments_enabled'] == 1 ? 'Yes' : 'No';
+
+                echo <<<EOT
+                    <tr>
+                        <td>{$article['id']}</td>
+                        <td>{$article['user_name']}</td>
+                        <td>{$article['title']}</td>
+                        <td>{$article['body']}</td>
+                        <td>{$article['is_top']}</td>
+                        <td>{$article['comments_enabled']}</td>
+                        <td>
+                            <a href='?action=edit&id={$article['id']}'>Edit</a>&nbsp;
+                            <a href='?action=delete&id={$article['id']}'>Delete</a>
+                        </td>
+                    </tr>
+                EOT;
             }
 
             ?>
