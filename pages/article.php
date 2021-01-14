@@ -26,38 +26,29 @@ if ($article['comments_enabled'] == 1) {
     require_once __DIR__ . '/../models/User.php';
 
     $comments = Comment::filter($article['id']);
-    $comments_count = count($comments);
 
     echo <<<EOT
-        <h2>Comments ($comments_count)</h1>
+        <h2 id='comments-count'>Comments (?)</h1>
+        <div id='messages'></div>
         EOT;
 
     if ($user = User::isLoggedIn()) {
         echo <<<EOT
         <form action='#'>
-            <textarea placeholder='Type your message here'></textarea>
+            <input type='hidden' id='article-id' value='{$article['id']}'/>
+            <textarea id='body' placeholder='Type your message here'></textarea>
             <input type='submit' value='Post'/>
         </form>
-
-        <div class='comments'>
         EOT;
     } else {
-        echo "You need to login to post a comment.";
+        echo "You need to login to post a comment.<br/><br/>";
     }
 
-    foreach ($comments as $comment) {
-        $comment['diff'] = diff($comment['creation_timestamp']);
-        echo <<<EOT
-                <div class='comment'>
-                    <div class='header'>
-                        <b>{$comment['user_name']}</b> {$comment['diff']}
-                    </div>
-                    <div class='body'>{$comment['body']}</div>
-                </div>
-            EOT;
-    }
-    echo "</div>";
+    echo "<div class='comments'>Loading...</div>";
 } else {
     echo "<i>Comments disabled for this post</i>";
 }
 ?>
+
+<script src="../static/js/base.js"></script>
+<script src="../static/js/article.js"></script>
