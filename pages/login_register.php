@@ -14,8 +14,7 @@ if (isset($_POST['login'])) {
 if (isset($_POST['register'])) {
     $errors = User::register($_POST['name'], $_POST['password'], $_POST['password-confirmation'], $_POST['email-address']);
     if (count($errors) == 0) {
-        header('Location: index.php');
-        exit;
+        echo "<div class='message is-success'>Registration successful. Login with the username and password.</div>";
     } else {
         $error_items = implode("", array_map(function ($item) {
             return "<li>$item</li>";
