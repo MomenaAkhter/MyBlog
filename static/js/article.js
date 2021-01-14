@@ -34,6 +34,7 @@ window.onload = function () {
     })
 
     loadComments()
+    document.getElementById('body').value = ''
 
     e.preventDefault()
   }
