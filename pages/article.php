@@ -46,7 +46,7 @@ if ($article['comments_enabled'] == 1) {
 
     echo "<div class='comments'>Loading...</div>";
 } else {
-    echo "<i>Comments disabled for this post</i>";
+    echo "<i>Comments are disabled for this post</i>";
 }
 ?>
 
