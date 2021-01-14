@@ -6,16 +6,18 @@ require_once __DIR__ . '/../models/Article.php';
 require_once __DIR__ . '/../helpers/datetime.php';
 
 $articles = Article::getAllTop();
-
 ?>
 <div class="articles articles-top">
-    <?php foreach ($articles as $article) { ?>
+    <?php
+    foreach ($articles as $article) {
+        $time_difference = diff($article['creation_timestamp']);
+    ?>
     <div class="article">
         <a href="article.php?id=<?php echo $article['id']; ?>">
             <div class="title"><?php echo $article['title']; ?></div>
         </a>
         <div class="author">
-            Written by <i><?php echo $article['user_name']; ?></i>
+            <?php echo "Written by <b>{$article['user_name']}</b> {$time_difference} ago"; ?>
         </div>
         <div class="comments-info">
             <b><?php echo $article['comments_count']; ?></b>
