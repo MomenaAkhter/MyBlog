@@ -155,16 +155,36 @@ textarea {
     row-gap: 1em;
 }
 
+.articles.articles-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 1em;
+    row-gap: 1em;
+}
+
 .article {
     padding: 1em;
     border: 1px solid #CCC;
     border-radius: 3px;
 }
 
-.article>.title {
+.article .title {
     font-weight: bold;
     font-size: 20px;
+    margin-bottom: 0.3em;
+    display: inline-block;
+    text-decoration: underline;
+}
+
+.article .author {
+    margin-bottom: 0.3em;
+}
+
+.article .comments-info {
     margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #BBB;
+    font-size: 14px;
 }
 
 /* Tables */

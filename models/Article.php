@@ -13,7 +13,14 @@ class Article
 
     public static function getAll()
     {
-        $sth = Database::getHandle()->prepare("SELECT articles.*, users.name as user_name FROM articles LEFT JOIN users ON users.id = articles.user_id WHERE 1", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth = Database::getHandle()->prepare("SELECT articles.*, users.name as user_name, COUNT(comments.id) as comments_count FROM articles LEFT JOIN users ON users.id = articles.user_id LEFT JOIN comments ON comments.article_id = articles.id GROUP BY articles.id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getAllTop()
+    {
+        $sth = Database::getHandle()->prepare("SELECT articles.*, users.name as user_name, COUNT(comments.id) as comments_count FROM articles LEFT JOIN users ON users.id = articles.user_id LEFT JOIN comments ON comments.article_id = articles.id WHERE articles.is_top = 1 GROUP BY articles.id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
