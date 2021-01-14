@@ -47,7 +47,7 @@ hr {
     display: flex;
 }
 
-.menu .left>a, .right>a, span {
+.menu .left>a, .menu .right>a, .menu span {
     margin-right: 1em;
     color: white;
     text-decoration: none;
