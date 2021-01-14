@@ -3,8 +3,10 @@
 <?php
 require_once __DIR__ . '/../libs/Database.php';
 require_once __DIR__ . '/../models/Article.php';
+require_once __DIR__ . '/../helpers/datetime.php';
 
 $articles = Article::getAllTop();
+
 ?>
 <div class="articles articles-top">
     <?php foreach ($articles as $article) { ?>
@@ -17,7 +19,7 @@ $articles = Article::getAllTop();
         </div>
         <div class="comments-info">
             <b><?php echo $article['comments_count']; ?></b>
-            comment<?php echo $article['comments_count'] > 0 ? 's' : ''; ?>
+            comment<?php echo $article['comments_count'] > 1 ? 's' : ''; ?>
         </div>
         <div class="body"><?php echo $article['body']; ?></div>
     </div>

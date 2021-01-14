@@ -17,7 +17,7 @@ $articles = Article::getAll();
         </div>
         <div class="comments-info">
             <b><?php echo $article['comments_count']; ?></b>
-            comment<?php echo $article['comments_count'] > 0 ? 's' : ''; ?>
+            comment<?php echo $article['comments_count'] > 1 ? 's' : ''; ?>
         </div>
         <div class="body"><?php echo $article['body']; ?></div>
     </div>
