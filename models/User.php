@@ -60,4 +60,16 @@ class User
 
         return $errors;
     }
+
+    public static function promote($id)
+    {
+        $sth = Database::getHandle()->prepare("UPDATE users SET is_admin = 1 WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        return $sth->execute([':id' => $id]);
+    }
+
+    public static function demote($id)
+    {
+        $sth = Database::getHandle()->prepare("UPDATE users SET is_admin = 0 WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        return $sth->execute([':id' => $id]);
+    }
 }
