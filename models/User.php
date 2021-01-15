@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../libs/Database.php';
 require_once __DIR__ . '/../helpers/session.php';
+require_once __DIR__ . '/../helpers/datetime.php';
 
 class User
 {
@@ -55,7 +56,7 @@ class User
             $errors[] = "Email Address can't be blank.";
 
         if (count($errors) == 0) {
-            Database::insert('users', ['name', 'password', 'email_address', 'is_admin', 'creation_timestamp', 'update_timestamp'], [$name, password_hash($password,  PASSWORD_DEFAULT), $email, 0, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
+            Database::insert('users', ['name', 'password', 'email_address', 'is_admin', 'creation_timestamp', 'update_timestamp'], [$name, password_hash($password,  PASSWORD_DEFAULT), $email, 0, now(), now()]);
         }
 
         return $errors;
@@ -63,13 +64,13 @@ class User
 
     public static function promote($id)
     {
-        $sth = Database::getHandle()->prepare("UPDATE users SET is_admin = 1 WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        return $sth->execute([':id' => $id]);
+        $sth = Database::getHandle()->prepare("UPDATE users SET is_admin = 1, update_timestamp = :update_timestamp WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        return $sth->execute([':id' => $id, ':update_timestamp' => now()]);
     }
 
     public static function demote($id)
     {
-        $sth = Database::getHandle()->prepare("UPDATE users SET is_admin = 0 WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        return $sth->execute([':id' => $id]);
+        $sth = Database::getHandle()->prepare("UPDATE users SET is_admin = 0, update_timestamp = :update_timestamp WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        return $sth->execute([':id' => $id, ':update_timestamp' => now()]);
     }
 }

@@ -5,6 +5,7 @@
 require_once __DIR__ . '/../../libs/Database.php';
 require_once __DIR__ . '/../../models/Article.php';
 require_once __DIR__ . '/../../models/User.php';
+require_once __DIR__ . '/../../helpers/datetime.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 
@@ -21,7 +22,7 @@ if (isset($_POST['create'])) {
     $comments_enabled = isset($_POST['comments_enabled']) ? 1 : 0;
     $user_id = User::isLoggedIn()['id'];
 
-    if (Database::insert('articles', ['user_id', 'title', 'body', 'creation_timestamp', 'update_timestamp', 'is_top', 'comments_enabled'], [$user_id, $title, htmlentities($body), date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), $is_top, $comments_enabled]))
+    if (Database::insert('articles', ['user_id', 'title', 'body', 'creation_timestamp', 'update_timestamp', 'is_top', 'comments_enabled'], [$user_id, $title, htmlentities($body), now(), now(), $is_top, $comments_enabled]))
         echo "<div class='message is-success'>Article created successfully.</div>";
 }
 

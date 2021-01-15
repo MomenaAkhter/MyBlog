@@ -25,7 +25,7 @@ class MenuItem
 
     public static function alter($id, $name, $link, $weight)
     {
-        $sth = Database::getHandle()->prepare("UPDATE menu_items SET name = :name, href = :href, weight = :weight  WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth = Database::getHandle()->prepare("UPDATE menu_items SET name = :name, href = :href, weight = :weight WHERE id = :id", array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         return $sth->execute([':id' => $id, ':name' => $name, ':href' => $link, ':weight' => $weight]);
     }
 }
