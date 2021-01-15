@@ -50,5 +50,8 @@ if ($article['comments_enabled'] == 1) {
 }
 ?>
 
+<script type='text/javascript'>
+const articleId = <?php echo $article['id']; ?>;
+</script>
 <script src="../static/js/base.js"></script>
 <script src="../static/js/article.js"></script>

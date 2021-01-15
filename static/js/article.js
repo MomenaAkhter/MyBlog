@@ -1,7 +1,5 @@
 window.onload = function () {
-  const loadComments = function () {
-    const articleId = document.getElementById('article-id').value
-
+  const loadComments = function (articleId) {
     get(`../api/article.php?action=filter&article-id=${articleId}`, function (response) {
       let comments = []
 
@@ -26,18 +24,23 @@ window.onload = function () {
     })
   }
 
-  document.getElementsByTagName('form')[0].onsubmit = function (e) {
-    const body = document.getElementById('body').value
-    const articleId = document.getElementById('article-id').value
-    post('../api/article.php', `action=create&body=${body}&article-id=${articleId}`, function (response) {
-      if (response === 'ok') { document.getElementById('messages').innerHTML = "<div class='message is-success'>Comment posted successfully!</div>" }
-    })
+  if (document.getElementsByTagName('form').length > 0) {
+    // Comment creation form enabled
+    document.getElementsByTagName('form')[0].onsubmit = function (e) {
+      const body = document.getElementById('body').value
+      const articleId = document.getElementById('article-id').value
+      post('../api/article.php', `action=create&body=${body}&article-id=${articleId}`, function (response) {
+        if (response === 'ok') {
+          document.getElementById('messages').innerHTML = "<div class='message is-success'>Comment posted successfully!</div>"
+          loadComments(articleId)
+        }
+      })
 
-    loadComments()
-    document.getElementById('body').value = ''
+      document.getElementById('body').value = ''
 
-    e.preventDefault()
+      e.preventDefault()
+    }
   }
 
-  loadComments()
+  loadComments(articleId)
 }
