@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../../libs/Config.php';
 require_once __DIR__ . '/../../models/User.php';
+require_once __DIR__ . '/../../models/MenuItem.php';
 ?>
 
 <nav class="menu">
     <div class="left">
         <div class="title"><?php echo Config::get('site_name'); ?></div>
-        <?php foreach (Database::getAll('menu_items') as $menuItem) {
+        <?php foreach (MenuItem::getAll('menu_items') as $menuItem) {
             echo "<a href='{$menuItem['href']}'>{$menuItem['name']}</a>";
         } ?>
     </div>
