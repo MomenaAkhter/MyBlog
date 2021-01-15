@@ -52,14 +52,18 @@ class Database
 
     public static function insert($table, $columns, $values)
     {
-        $columns = implode(',', $columns);
-        $values = implode(',', array_map(function ($item) {
-            if (is_int($item))
-                return $item;
-            return "'$item'";
-        }, $values));
+        $value_placeholders = implode(',', array_map(function ($column) {
+            return ":$column";
+        }, $columns));
 
-        return Database::getHandle()->exec("INSERT INTO $table ($columns) VALUES ($values)");
+        $value_placeholder_associations = [];
+        for ($i = 0; $i < count($values); $i++)
+            $value_placeholder_associations[":{$columns[$i]}"] = $values[$i];
+
+        $columns = implode(',', $columns);
+
+        $sth = Database::getHandle()->prepare("INSERT INTO $table ($columns) VALUES ($value_placeholders)");
+        return $sth->execute($value_placeholder_associations);
     }
 
     public static function remove($table, $id)

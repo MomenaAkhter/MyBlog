@@ -8,7 +8,7 @@ require_once __DIR__ . '/../helpers/datetime.php';
 function create()
 {
     if ($user = User::isLoggedIn()) {
-        if (Database::insert('comments', ['user_id', 'article_id', 'body', 'creation_timestamp', 'update_timestamp'], [$user['id'], $_POST['article-id'], $_POST['body'], now(), now()]))
+        if (Database::insert('comments', ['user_id', 'article_id', 'body', 'creation_timestamp', 'update_timestamp'], [$user['id'], $_POST['article-id'], htmlentities($_POST['body']), now(), now()]))
             echo 'ok';
     } else {
         echo 'error';

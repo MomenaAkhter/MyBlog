@@ -21,7 +21,7 @@ if (isset($_POST['create'])) {
     $comments_enabled = isset($_POST['comments_enabled']) ? 1 : 0;
     $user_id = User::isLoggedIn()['id'];
 
-    if (Database::insert('articles', ['user_id', 'title', 'body', 'creation_timestamp', 'update_timestamp', 'is_top', 'comments_enabled'], [$user_id, $title, $body, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), $is_top, $comments_enabled]))
+    if (Database::insert('articles', ['user_id', 'title', 'body', 'creation_timestamp', 'update_timestamp', 'is_top', 'comments_enabled'], [$user_id, $title, htmlentities($body), date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), $is_top, $comments_enabled]))
         echo "<div class='message is-success'>Article created successfully.</div>";
 }
 
@@ -30,7 +30,7 @@ if ($action == 'edit') {
     $id = $_GET['id'];
 
     if (isset($_POST['edit']))
-        if (Article::alter($id, $_POST['title'], $_POST['body'], isset($_POST['is_top']) ? 1 : 0, isset($_POST['comments_enabled']) ? 1 : 0))
+        if (Article::alter($id, $_POST['title'], htmlentities($_POST['body']), isset($_POST['is_top']) ? 1 : 0, isset($_POST['comments_enabled']) ? 1 : 0))
             echo "<div class='message is-success'>Article updated successfully.</div>";
 
     $article = Article::find($id);
@@ -103,7 +103,9 @@ if ($action == 'edit') {
                     <tr>
                         <td>{$article['id']}</td>
                         <td>{$article['user_name']}</td>
-                        <td>{$article['title']}</td>
+                        <td>
+                            <a href='../article.php?id={$article['id']}'>{$article['title']}</a>
+                        </td>
                         <td>{$article['body']}</td>
                         <td>{$article['is_top']}</td>
                         <td>{$article['comments_enabled']}</td>
